@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 
 import plata
 from plata.fields import CurrencyField, JSONField
-
+from plata.shop.countries import countries
 
 logger = logging.getLogger('plata.shop.order')
 
@@ -54,7 +54,7 @@ class BillingShippingAddress(models.Model):
     billing_address = models.TextField(_('address'))
     billing_zip_code = models.CharField(_('ZIP code'), max_length=50)
     billing_city = models.CharField(_('city'), max_length=100)
-    billing_country = models.CharField(_('country'), max_length=3, blank=True)
+    billing_country = models.CharField(_('country'), max_length=3, choices=countries)
 
     shipping_same_as_billing = models.BooleanField(_('shipping address equals billing address'),
         default=True)
@@ -66,7 +66,7 @@ class BillingShippingAddress(models.Model):
     shipping_phone = models.CharField(_('Phone'), max_length=50, blank=True)
     shipping_zip_code = models.CharField(_('ZIP code'), max_length=50, blank=True)
     shipping_city = models.CharField(_('city'), max_length=100, blank=True)
-    shipping_country = models.CharField(_('country'), max_length=3, blank=True)
+    shipping_country = models.CharField(_('country'), max_length=3, blank=True, choices=countries)
 
     class Meta:
         abstract = True
@@ -77,11 +77,15 @@ class BillingShippingAddress(models.Model):
         into account the value of the ``shipping_same_as_billing`` flag
         """
         billing = dict((f, getattr(self, 'billing_%s' % f)) for f in self.ADDRESS_FIELDS)
+        if 'country' in billing:
+            billing['country'] = self.get_billing_country_display()
 
         if self.shipping_same_as_billing:
             shipping = billing
         else:
             shipping = dict((f, getattr(self, 'shipping_%s' % f)) for f in self.ADDRESS_FIELDS)
+        if 'country' in shipping:
+            shipping['country'] = self.get_billing_country_display() or self.get_shipping_country_display()
 
         return {'billing': billing, 'shipping': shipping}
 
