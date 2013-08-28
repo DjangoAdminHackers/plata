@@ -46,7 +46,7 @@ class DiscountBase(models.Model):
     name = models.CharField(_('name'), max_length=100)
 
     type = models.PositiveIntegerField(_('type'), choices=TYPE_CHOICES)
-    value = models.DecimalField(_('value'), max_digits=18, decimal_places=10)
+    value = models.DecimalField(_('value'), max_digits=18, decimal_places=4)
 
     currency = CurrencyField(blank=True, null=True,
         help_text=_('Only required for amount discounts.'))
@@ -296,7 +296,7 @@ class AppliedDiscount(DiscountBase):
                                                       # want deletions to cascade to this
                                                       # table.
     remaining = models.DecimalField(_('remaining'),
-        max_digits=18, decimal_places=10, default=0,
+        max_digits=18, decimal_places=4, default=0,
         help_text=_('Discount amount excl. tax remaining after discount has been applied.'))
 
     class Meta:

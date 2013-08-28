@@ -232,11 +232,11 @@ class StockTransaction(models.Model):
     name = models.CharField(_('name'), max_length=100, blank=True)
     sku = models.CharField(_('SKU'), max_length=100, blank=True)
     line_item_price = models.DecimalField(_('line item price'),
-        max_digits=18, decimal_places=10, blank=True, null=True)
+        max_digits=18, decimal_places=4, blank=True, null=True)
     line_item_discount = models.DecimalField(_('line item discount'),
-        max_digits=18, decimal_places=10, blank=True, null=True)
+        max_digits=18, decimal_places=4, blank=True, null=True)
     line_item_tax = models.DecimalField(_('line item tax'),
-        max_digits=18, decimal_places=10, blank=True, null=True)
+        max_digits=18, decimal_places=4, blank=True, null=True)
 
     class Meta:
         ordering = ['-id']

@@ -131,26 +131,26 @@ class Order(BillingShippingAddress):
     currency = CurrencyField()
 
     items_subtotal = models.DecimalField(_('subtotal'),
-        max_digits=18, decimal_places=10, default=Decimal('0.00'))
+        max_digits=18, decimal_places=4, default=Decimal('0.00'))
     items_discount = models.DecimalField(_('items discount'),
-        max_digits=18, decimal_places=10, default=Decimal('0.00'))
+        max_digits=18, decimal_places=4, default=Decimal('0.00'))
     items_tax = models.DecimalField(_('items tax'),
-        max_digits=18, decimal_places=10, default=Decimal('0.00'))
+        max_digits=18, decimal_places=4, default=Decimal('0.00'))
 
     shipping_method = models.CharField(_('shipping method'),
         max_length=100, blank=True)
     shipping_cost = models.DecimalField(_('shipping cost'),
-        max_digits=18, decimal_places=10, blank=True, null=True)
+        max_digits=18, decimal_places=4, blank=True, null=True)
     shipping_discount = models.DecimalField(_('shipping discount'),
-        max_digits=18, decimal_places=10, blank=True, null=True)
+        max_digits=18, decimal_places=4, blank=True, null=True)
     shipping_tax = models.DecimalField(_('shipping tax'),
-        max_digits=18, decimal_places=10, default=Decimal('0.00'))
+        max_digits=18, decimal_places=4, default=Decimal('0.00'))
 
     total = models.DecimalField(_('total'),
-        max_digits=18, decimal_places=10, default=Decimal('0.00'))
+        max_digits=18, decimal_places=4, default=Decimal('0.00'))
 
     paid = models.DecimalField(_('paid'),
-        max_digits=18, decimal_places=10, default=Decimal('0.00'),
+        max_digits=18, decimal_places=4, default=Decimal('0.00'),
         help_text=_('This much has been paid already.'))
 
     notes = models.TextField(_('notes'), blank=True)
@@ -434,10 +434,10 @@ class OrderItem(models.Model):
 
     currency = CurrencyField()
     _unit_price = models.DecimalField(_('unit price'),
-        max_digits=18, decimal_places=10,
+        max_digits=18, decimal_places=4,
         help_text=_('Unit price excl. tax'))
     _unit_tax = models.DecimalField(_('unit tax'),
-        max_digits=18, decimal_places=10)
+        max_digits=18, decimal_places=4)
 
     tax_rate = models.DecimalField(_('tax rate'), max_digits=10, decimal_places=2)
     tax_class = models.ForeignKey(TaxClass, verbose_name=_('tax class'),
@@ -446,15 +446,15 @@ class OrderItem(models.Model):
     is_sale = models.BooleanField(_('is sale'))
 
     _line_item_price = models.DecimalField(_('line item price'),
-        max_digits=18, decimal_places=10, default=0,
+        max_digits=18, decimal_places=4, default=0,
         help_text=_('Line item price excl. tax'))
     _line_item_discount = models.DecimalField(_('line item discount'),
-        max_digits=18, decimal_places=10,
+        max_digits=18, decimal_places=4,
         blank=True, null=True,
         help_text=_('Discount excl. tax'))
 
     _line_item_tax = models.DecimalField(_('line item tax'),
-        max_digits=18, decimal_places=10, default=0)
+        max_digits=18, decimal_places=4, default=0)
 
     data = JSONField(_('data'), blank=True,
         help_text=_('JSON-encoded additional data about the order payment.'))
@@ -649,7 +649,7 @@ class PriceBase(models.Model):
         verbose_name_plural = _('prices')
 
     currency = CurrencyField()
-    _unit_price = models.DecimalField(_('unit price'), max_digits=18, decimal_places=10)
+    _unit_price = models.DecimalField(_('unit price'), max_digits=18, decimal_places=4)
     tax_included = models.BooleanField(_('tax included'),
         help_text=_('Is tax included in given unit price?'),
         default=plata.settings.PLATA_PRICE_INCLUDES_TAX)
