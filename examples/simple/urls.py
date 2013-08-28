@@ -1,6 +1,9 @@
 import os
 
-from django.conf.urls.defaults import include, patterns, url
+try:
+    from django.conf.urls.defaults import include, patterns, url
+except:
+    from django.conf.urls import include, patterns, url
 from django.contrib import admin
 from django.shortcuts import redirect
 

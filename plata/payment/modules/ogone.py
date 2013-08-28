@@ -83,8 +83,10 @@ class PaymentProcessor(ProcessorBase):
     default_name = _('Ogone')
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
-
+        try:
+            from django.conf.urls.defaults import patterns, url
+        except:
+            from django.conf.urls import patterns, url
         return patterns('',
             url(r'^payment/ogone/ipn/$', self.ipn, name='plata_payment_ogone_ipn'),
             )

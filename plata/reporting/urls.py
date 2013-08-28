@@ -1,5 +1,7 @@
-from django.conf.urls.defaults import patterns, url
-
+try:
+    from django.conf.urls.defaults import patterns, url
+except:
+    from django.conf.urls import patterns, url
 
 urlpatterns = patterns('plata.reporting.views',
     url(r'^product_xls/$', 'product_xls', name='plata_reporting_product_xls'),

@@ -78,8 +78,11 @@ class PaymentProcessor(ProcessorBase):
     default_name = _('Postfinance')
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
-
+        try:
+            from django.conf.urls.defaults import patterns, url
+        except:
+            from django.conf.urls import patterns, url
+            
         return patterns('',
             url(r'^payment/postfinance/ipn/$', self.ipn, name='plata_payment_postfinance_ipn'),
             )
