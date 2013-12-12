@@ -66,3 +66,5 @@ CURRENCIES = getattr(settings, 'CURRENCIES', ('CHF', 'EUR', 'USD', 'CAD'))
 
 #: Target of order item product foreign key (Defaults to ``'product.Product'``)
 PLATA_SHOP_PRODUCT = getattr(settings, 'PLATA_SHOP_PRODUCT', 'product.Product')
+
+PLATA_VALIDATE_EMAIL_OWNER = getattr(settings, 'PLATA_VALIDATE_EMAIL_OWNER', True)

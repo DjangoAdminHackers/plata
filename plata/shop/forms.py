@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+import plata
 from plata.shop import signals
 
 
@@ -23,7 +24,7 @@ class BaseCheckoutForm(forms.ModelForm):
         email = data.get('email')
         create_account = data.get('create_account')
 
-        if email:
+        if email and plata.settings.PLATA_VALIDATE_EMAIL_OWNER:
             users = list(User.objects.filter(email=email))
 
             if users:
