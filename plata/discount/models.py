@@ -46,7 +46,7 @@ class DiscountBase(models.Model):
     name = models.CharField(_('name'), max_length=100)
 
     type = models.PositiveIntegerField(_('type'), choices=TYPE_CHOICES)
-    value = models.DecimalField(_('value'), max_digits=18, decimal_places=4)
+    value = models.DecimalField(_('value'), max_digits=18, decimal_places=2)
 
     currency = CurrencyField(blank=True, null=True,
         help_text=_('Only required for amount discounts.'))
