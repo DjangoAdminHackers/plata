@@ -16,6 +16,11 @@ from plata.shop.countries import countries
 
 logger = logging.getLogger('plata.shop.order')
 
+#modified by fruitschen
+try:
+    from custom_site.custom_order import OrderMinxin
+except:
+    class OrderMinxin(object):pass
 
 class TaxClass(models.Model):
     """
@@ -96,7 +101,7 @@ class BillingShippingAddress(models.Model):
         return ['%s%s' % (prefix, f) for f in cls.ADDRESS_FIELDS]
 
 
-class Order(BillingShippingAddress):
+class Order(BillingShippingAddress, OrderMinxin):
     """The main order model. Used for carts and orders alike."""
     #: Order object is a cart.
     CART = 10
