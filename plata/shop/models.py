@@ -92,7 +92,7 @@ class BillingShippingAddress(models.Model):
         else:
             shipping = dict((f, getattr(self, 'shipping_%s' % f)) for f in self.ADDRESS_FIELDS)
         if 'country' in shipping:
-            shipping['country'] = self.get_billing_country_display() or self.get_shipping_country_display()
+            shipping['country'] = self.get_shipping_country_display() or self.get_billing_country_display()
 
         return {'billing': billing, 'shipping': shipping}
 
